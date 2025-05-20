@@ -1,0 +1,2 @@
+[console_scripts]
+flyingduck = flyingduck_mcp.cli:app

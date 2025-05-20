@@ -1,0 +1,81 @@
+tool_name: flyingduck-mcp
+version: 1.0.0
+description: |
+  Flyingduck-MCP is an internal security scanner that provides SAST, SCA, Secrets Scanning, and SBOM Vulnerability Analysis via modular CLI commands. It is designed for LLM and Cursor integration.
+
+commands:
+  - name: fetch-repositories
+    description: Fetch all available repositories for scanning.
+    cli: flyingduck fetch-repositories
+    prompt: fetch repositories
+    output: json
+
+  - name: fetch-dependencies
+    description: Catalog third-party dependencies for SCA.
+    cli: flyingduck fetch-dependencies
+    prompt: fetch dependencies
+    output: json
+
+  - name: scan-sast
+    description: Run static application security testing (SAST).
+    cli: flyingduck scan-sast
+    prompt: scan sast
+    output: json
+
+  - name: scan-sca
+    description: Run software composition analysis (SCA).
+    cli: flyingduck scan-sca
+    prompt: scan sca
+    output: json
+
+  - name: scan-secrets
+    description: Scan for hardcoded secrets.
+    cli: flyingduck scan-secrets
+    prompt: scan secrets
+    output: json
+
+  - name: scan-all
+    description: Run all scans (SAST, SCA, Secrets).
+    cli: flyingduck scan-all
+    prompt: scan all
+    output: json
+
+  - name: fix
+    description: Attempt to auto-fix detected vulnerabilities.
+    cli: flyingduck fix
+    prompt: fix
+    output: json
+
+  - name: cleanup
+    description: Clean up temporary scan artifacts.
+    cli: flyingduck cleanup
+    prompt: cleanup
+    output: json
+
+  - name: check-status
+    description: Check scanner and tool status.
+    cli: flyingduck check-status
+    prompt: check status
+    output: json
+
+  - name: scan-sbom
+    description: Analyze SBOM file for vulnerabilities.
+    cli: flyingduck scan-sbom --file {sbom_path}
+    prompt: scan sbom {sbom_path}
+    arguments:
+      - name: sbom_path
+        type: string
+        required: true
+    output: json
+
+docker:
+  image: flyingduckio/duckdefender:latest
+  entrypoint: /bin/bash
+  env:
+    - FD_API_KEY
+  volume: $PWD:/src
+  command_template: duckdefender code --all
+
+output_contract:
+  format: json
+  description: All commands must output structured JSON for LLM and Cursor parsing. 

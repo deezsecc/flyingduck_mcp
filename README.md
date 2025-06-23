@@ -3,7 +3,7 @@
 Flyingduck-MCP is an internal security scanner server that provides SAST, SCA, Secrets Scanning, and SBOM Vulnerability Analysis via modular CLI commands. It is designed for LLM and Cursor integration, enabling prompt-based security workflows.
 
 ## Features
-- Fetch repositories and dependencies
+- Fetch repositories and dependencies.
 - SAST, SCA, Secrets, and SBOM scanning
 - Automated fix and cleanup commands
 - JSON output for easy LLM/Cursor parsing
